@@ -31,3 +31,27 @@ body {
     text-wrap: balance;
   }
 } */
+
+/* @layer base {
+  
+} */
+
+/* .tiptap {
+  h1 {
+    @apply text-xl;
+    @apply font-semibold;
+  }
+
+  h2 {
+    @apply text-lg;
+    @apply font-semibold;
+    @apply underline;
+    @apply underline-offset-1;
+  }
+
+  h3 {
+    @apply text-lg;
+    @apply font-medium;
+    @apply text-center;
+  }
+} */
