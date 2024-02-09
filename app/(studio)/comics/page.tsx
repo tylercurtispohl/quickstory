@@ -1,5 +1,5 @@
 "use client";
-import { ComicEditor } from "@/app/ui/comics/Tiptap";
+import { ComicEditor } from "@/app/ui/comics/tiptap/editor";
 
 export default function Page() {
   return (
