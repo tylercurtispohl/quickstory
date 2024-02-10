@@ -15,8 +15,8 @@ import {
   PanelDescription,
   PanelDialog,
   PanelHeading,
-} from "@/app/ui/comics/tiptap/schema";
-import { ComicEditorMenu } from "@/app/ui/comics/tiptap/menu";
+} from "@/src/app/ui/comics/tiptap/schema";
+import { ComicEditorMenu } from "@/src/app/ui/comics/tiptap/menu";
 
 export const ComicEditor = () => {
   const editor = useEditor({
