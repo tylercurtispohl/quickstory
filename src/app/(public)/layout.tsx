@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "@/src/app/globals.css";
 import { Providers } from "@/src/app/providers";
 import { Amplify } from "aws-amplify";
 import config from "@/src/amplifyconfiguration.json";
@@ -22,7 +22,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <div>This is the public layout</div>
+          {children}
+        </Providers>
       </body>
     </html>
   );
