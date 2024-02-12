@@ -10,6 +10,11 @@
       "StackName": "amplify-quickstory-dev-02325",
       "StackId": "arn:aws:cloudformation:us-east-1:590183759730:stack/amplify-quickstory-dev-02325/aaa10540-c7ed-11ee-b475-0ad7a5d35c95",
       "AmplifyAppId": "d32cm2qa6ni54f"
+    },
+    "categories": {
+      "auth": {
+        "quickstoryfa4239e7": {}
+      }
     }
   }
 }
