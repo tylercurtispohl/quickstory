@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/src/app/globals.css";
-import { Providers } from "@/src/app/providers";
-import { Amplify } from "aws-amplify";
-import config from "@/src/amplifyconfiguration.json";
-
-Amplify.configure(config);
+import "@aws-amplify/ui-react/styles.css";
+import { AuthenticatorLayout } from "@/src/app/ui/authenticator/authenticatorLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,10 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>
-          <div>This is the studio layout</div>
-          {children}
-        </Providers>
+        <AuthenticatorLayout>{children}</AuthenticatorLayout>
       </body>
     </html>
   );
