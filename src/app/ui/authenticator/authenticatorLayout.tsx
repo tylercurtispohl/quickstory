@@ -9,7 +9,7 @@ import config from "@/src/amplifyconfiguration.json";
 import { Button } from "@nextui-org/react";
 import { Authenticator } from "@aws-amplify/ui-react";
 
-Amplify.configure(config);
+Amplify.configure(config, { ssr: true });
 
 export const AuthenticatorLayout = ({
   children,
