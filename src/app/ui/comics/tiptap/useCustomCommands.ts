@@ -103,7 +103,8 @@ const insertDialogBefore = (editor: Editor) => {
     ]);
 };
 
-const logJson = (editor: Editor) => console.log(editor.getJSON());
+const logJson = (editor: Editor) =>
+  console.log(JSON.stringify(editor.getJSON()));
 
 const logAnchorPos = (editor: Editor) => {
   const anchorPos = editor.$pos(editor.state.selection.anchor);

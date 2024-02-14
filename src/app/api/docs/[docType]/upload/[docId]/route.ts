@@ -54,9 +54,6 @@ export const POST = async (
   await s3Client.send(command);
 
   return Response.json({
-    message: "File uploaded successfully",
-    data: {
-      key: s3Key,
-    },
+    key: s3Key,
   });
 };
