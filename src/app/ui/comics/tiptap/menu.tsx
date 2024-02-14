@@ -49,6 +49,23 @@ export const ComicEditorMenu = ({ editor }: { editor: Editor }) => {
       <Button color="default" size="sm" variant="ghost" onClick={logAnchorPos}>
         Log AnchorPos
       </Button>
+      <Button
+        color="default"
+        size="sm"
+        variant="ghost"
+        onClick={async () => {
+          const json = JSON.stringify(editor.getJSON());
+
+          const response = await fetch("/api/docs/comics/upload/test123", {
+            method: "POST",
+            body: json,
+          });
+
+          console.log(response.body);
+        }}
+      >
+        Save
+      </Button>
     </div>
   );
 };
