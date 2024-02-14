@@ -1,7 +1,7 @@
 "use client";
 
 import { Editor } from "@tiptap/react";
-import { Button } from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
 import {
   ArrowDownIcon,
   ArrowUpIcon,
@@ -9,7 +9,7 @@ import {
   DocumentIcon,
   SquaresPlusIcon,
 } from "@heroicons/react/24/outline";
-import React from "react";
+import React, { useState } from "react";
 import { useCustomCommands } from "./useCustomCommands";
 import { Doc } from "@prisma/client";
 
@@ -29,10 +29,21 @@ export const ComicEditorMenu = ({
     insertDialogBefore,
   } = useCustomCommands(editor);
 
+  const [docName, setDocName] = useState(doc.name);
+
   return (
     <>
       <div>
-        <h1 className="text-3xl font-semibold font-serif">{doc.name}</h1>
+        <Input
+          value={docName}
+          onValueChange={setDocName}
+          variant="underlined"
+          size="lg"
+          // className="text-3xl font-semibold"
+          classNames={{
+            input: ["text-3xl", "font-semibold"],
+          }}
+        />
       </div>
       <div className="flex flex-row justify-start gap-2 py-2 flex-wrap">
         <Button color="default" size="sm" variant="ghost" onClick={insertPage}>
@@ -77,12 +88,19 @@ export const ComicEditorMenu = ({
           onClick={async () => {
             const json = JSON.stringify(editor.getJSON());
 
-            const response = await fetch("/api/docs/comics/upload/test123", {
+            // TODO: Handle errors
+            await fetch(`/api/docs/comic/upload/${doc.id}`, {
               method: "POST",
               body: json,
             });
 
-            console.log(response.body);
+            await fetch(`/api/docs/update`, {
+              method: "POST",
+              body: JSON.stringify({
+                id: doc.id,
+                name: docName,
+              }),
+            });
           }}
         >
           Save
