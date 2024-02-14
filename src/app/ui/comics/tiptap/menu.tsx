@@ -23,7 +23,7 @@ export const ComicEditorMenu = ({ editor }: { editor: Editor }) => {
   } = useCustomCommands(editor);
 
   return (
-    <div className="flex flex-row justify-start gap-2 py-2">
+    <div className="flex flex-row justify-start gap-2 py-2 flex-wrap">
       <Button color="default" size="sm" variant="ghost" onClick={insertPage}>
         <DocumentIcon className="h-6 w-6" />
       </Button>
@@ -65,6 +65,22 @@ export const ComicEditorMenu = ({ editor }: { editor: Editor }) => {
         }}
       >
         Save
+      </Button>
+      <Button
+        color="default"
+        size="sm"
+        variant="ghost"
+        onClick={async () => {
+          const json = JSON.stringify(editor.getJSON());
+
+          const response = await fetch("/api/docs/comics/retrieve/test123");
+
+          const body = await response.json();
+
+          console.log(body);
+        }}
+      >
+        Test Get
       </Button>
     </div>
   );
