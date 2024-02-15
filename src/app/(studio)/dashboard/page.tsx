@@ -1,7 +1,7 @@
 import { currentUser } from "@clerk/nextjs";
-import { CreateNewDocButton } from "@/src/app/ui/comics/createNewDocButton";
 import { getDocsByUserId } from "@/src/app/lib/actions";
 import { DocList } from "@/src/app/ui/dashboard/docList";
+import { sortBy } from "lodash";
 
 export default async function Page() {
   const user = await currentUser();
@@ -11,9 +11,11 @@ export default async function Page() {
 
   const docs = await getDocsByUserId(user.id);
 
+  const sortedDocs = sortBy(docs, (d) => d.updatedAt).reverse();
+
   return (
     <>
-      <DocList docs={docs}></DocList>
+      <DocList docs={sortedDocs}></DocList>
     </>
   );
 }
