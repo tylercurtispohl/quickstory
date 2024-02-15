@@ -14,7 +14,7 @@ export default async function Page({ params }: { params: { docId: string } }) {
 
   return (
     <div className="flex justify-center">
-      <div className="w-3/4">
+      <div className="w-full">
         <ComicEditor content={docBody} doc={doc} />
       </div>
     </div>
