@@ -4,6 +4,7 @@ import { Editor } from "@tiptap/react";
 import { Button, Chip, Input, Spinner } from "@nextui-org/react";
 import {
   ArrowDownIcon,
+  ArrowLeftIcon,
   ArrowUpIcon,
   ChatBubbleLeftIcon,
   CheckIcon,
@@ -13,6 +14,8 @@ import {
 import React, { useState } from "react";
 import { useCustomCommands } from "./useCustomCommands";
 import { Doc } from "@prisma/client";
+import { useRouter } from "next/navigation";
+import { DeleteButton } from "@/src/app/ui/docs/deleteButton";
 
 export const ComicEditorMenu = ({
   editor,
@@ -25,6 +28,8 @@ export const ComicEditorMenu = ({
   isDirty: boolean;
   setIsDirty: (value: boolean) => void;
 }) => {
+  const router = useRouter();
+
   const {
     insertPanel,
     insertDialog,
@@ -36,10 +41,22 @@ export const ComicEditorMenu = ({
 
   const [docName, setDocName] = useState(doc.name);
   const [isSaving, setIsSaving] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   return (
     <>
-      <div>
+      <div className="flex flex-row">
+        <div className="flex flex-col justify-center">
+          <Button
+            variant="light"
+            color="default"
+            startContent={<ArrowLeftIcon className="h-12 w-12" />}
+            onPress={() => {
+              router.push("/dashboard");
+              router.refresh();
+            }}
+          ></Button>
+        </div>
         <Input
           value={docName}
           onValueChange={(value) => {
@@ -48,11 +65,20 @@ export const ComicEditorMenu = ({
           }}
           variant="underlined"
           size="lg"
-          // className="text-3xl font-semibold"
           classNames={{
             input: ["text-3xl", "font-semibold"],
           }}
         />
+
+        <div className="flex flex-col justify-center">
+          <DeleteButton
+            fullWidth
+            radius="lg"
+            docId={doc.id}
+            iconOnly
+            goToPath="/dashboard"
+          />
+        </div>
       </div>
       <div className="flex flex-row justify-start gap-2 py-2 flex-wrap">
         <Button color="default" size="sm" variant="ghost" onClick={insertPage}>
