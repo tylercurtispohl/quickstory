@@ -3,7 +3,7 @@
 import { useEditor, EditorContent, JSONContent } from "@tiptap/react";
 import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
-import React from "react";
+import React, { useState } from "react";
 import {
   CharacterName,
   ComicDocument,
@@ -26,7 +26,12 @@ export const ComicEditor = ({
   content: JSONContent;
   doc: Doc;
 }) => {
+  const [isDirty, setIsDirty] = useState(false);
+
   const editor = useEditor({
+    onUpdate() {
+      setIsDirty(true);
+    },
     extensions: [
       ComicDocument,
       Page,
@@ -71,7 +76,14 @@ export const ComicEditor = ({
 
   return (
     <>
-      {editor && <ComicEditorMenu editor={editor} doc={doc} />}
+      {editor && (
+        <ComicEditorMenu
+          editor={editor}
+          doc={doc}
+          isDirty={isDirty}
+          setIsDirty={setIsDirty}
+        />
+      )}
       <EditorContent editor={editor} className="mt-2" />
     </>
   );

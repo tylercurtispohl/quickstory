@@ -1,11 +1,12 @@
 "use client";
 
 import { Editor } from "@tiptap/react";
-import { Button, Input } from "@nextui-org/react";
+import { Button, Chip, Input, Spinner } from "@nextui-org/react";
 import {
   ArrowDownIcon,
   ArrowUpIcon,
   ChatBubbleLeftIcon,
+  CheckIcon,
   DocumentIcon,
   SquaresPlusIcon,
 } from "@heroicons/react/24/outline";
@@ -16,9 +17,13 @@ import { Doc } from "@prisma/client";
 export const ComicEditorMenu = ({
   editor,
   doc,
+  isDirty,
+  setIsDirty,
 }: {
   editor: Editor;
   doc: Doc;
+  isDirty: boolean;
+  setIsDirty: (value: boolean) => void;
 }) => {
   const {
     insertPanel,
@@ -30,13 +35,17 @@ export const ComicEditorMenu = ({
   } = useCustomCommands(editor);
 
   const [docName, setDocName] = useState(doc.name);
+  const [isSaving, setIsSaving] = useState(false);
 
   return (
     <>
       <div>
         <Input
           value={docName}
-          onValueChange={setDocName}
+          onValueChange={(value) => {
+            setDocName(value);
+            setIsDirty(true);
+          }}
           variant="underlined"
           size="lg"
           // className="text-3xl font-semibold"
@@ -86,6 +95,7 @@ export const ComicEditorMenu = ({
           size="sm"
           variant="ghost"
           onClick={async () => {
+            setIsSaving(true);
             const json = JSON.stringify(editor.getJSON());
 
             // TODO: Handle errors
@@ -101,6 +111,9 @@ export const ComicEditorMenu = ({
                 name: docName,
               }),
             });
+
+            setIsDirty(false);
+            setIsSaving(false);
           }}
         >
           Save
@@ -121,6 +134,19 @@ export const ComicEditorMenu = ({
         >
           Test Get
         </Button>
+        <div>
+          {isSaving ? (
+            <Spinner size="sm" />
+          ) : isDirty ? (
+            <Chip color="danger">Not Saved</Chip>
+          ) : (
+            <Chip color="primary">
+              <div className="flex flex-row gap-1">
+                <CheckIcon className="h-4 w-4" /> Saved
+              </div>
+            </Chip>
+          )}
+        </div>
       </div>
     </>
   );
