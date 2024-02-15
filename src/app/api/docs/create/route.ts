@@ -1,5 +1,4 @@
 import { PrismaConnector } from "@/src/lib/prismaConnector";
-import { v4 as uuidV4 } from "uuid";
 import { currentUser } from "@clerk/nextjs";
 import { User } from "@clerk/nextjs/server";
 

@@ -48,3 +48,10 @@ export const getDocBody = async (
 
   return body;
 };
+
+export const getDocsByUserId = async (userId: string) =>
+  PrismaConnector.getClient().doc.findMany({
+    where: {
+      clerkUserId: userId,
+    },
+  });
