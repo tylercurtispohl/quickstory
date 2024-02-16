@@ -2,6 +2,13 @@ import { currentUser } from "@clerk/nextjs";
 import { getDocsByUserId } from "@/src/app/lib/actions";
 import { DocList } from "@/src/app/ui/dashboard/docList";
 import { sortBy } from "lodash";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Dashboard - QuickStory Studio",
+  description:
+    "Your QuickStory dashboard where you can find all of your stories",
+};
 
 export default async function Page() {
   const user = await currentUser();

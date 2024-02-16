@@ -1,6 +1,12 @@
 import { getDoc, getDocBody } from "@/src/app/lib/actions";
 import { DocType } from "@/src/app/lib/types";
 import { ComicEditor } from "@/src/app/ui/comics/tiptap/editor";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Comic Editor - QuickStory Studio",
+  description: "Comic script editor from QuickStory Studio",
+};
 
 export default async function Page({ params }: { params: { docId: string } }) {
   const doc = await getDoc(params.docId);
